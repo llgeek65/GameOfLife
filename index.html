@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Game Of Life</title>
+	<style>
+		canvas{
+			display: block;
+		}
+
+		#update {
+			display: inline-block;
+		}
+	</style>
+</head>
+<body>
+	<button id="play">play</button>
+	<button id="pause">pause</button>
+	<button id="refresh">refresh</button>
+
+	<div id="update"></div>
+	<canvas id="GameOfLife"></canvas>
+	
+	<script src="GameOfLife.js"></script>
+	<script type="text/javascript">
+		let up = document.querySelector('#update');
+		let count = 0;
+
+		up.textContent = 'Generation : ' + count;
+
+		let game = new gameOfLife('#GameOfLife', {
+			resolution: 2,
+			cols: 750,
+			rows: 330,
+			delay: 20,
+			update: function() {
+				count++;
+				up.textContent = 'Generation : ' + count
+			}
+		});
+
+		let play = document.querySelector('#play');
+		let pause = document.querySelector('#pause');
+		let refresh = document.querySelector('#refresh');
+
+		play.addEventListener('click', function() { 
+			game.play();
+		});
+
+		pause.addEventListener('click', function() { 
+			game.pause();
+		});
+
+		refresh.addEventListener('click', function() {
+			game.refresh();
+
+			count = 0;
+			up.textContent = 'Generation : ' + count;
+		});
+	</script>
+</body>
+</html>
